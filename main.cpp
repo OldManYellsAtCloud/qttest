@@ -5,14 +5,11 @@
 #include "settings.h"
 #include "requesthandler.h"
 
+#define CONFIG_FILE  "pine_bus.cfg"
 
 
 int main(int argc, char *argv[])
 {
-
-
-
-
     QGuiApplication app(argc, argv);
 
     QQmlApplicationEngine engine;
@@ -25,7 +22,7 @@ int main(int argc, char *argv[])
     engine.load(url);
 
 
-    QString cfgPath = QDir::homePath() + QDir::separator() + "pine_bus.cfg";
+    QString cfgPath = QDir::homePath() + QDir::separator() + CONFIG_FILE;
     Settings::getSettings().init(cfgPath);
 
     RequestHandler *rh = new RequestHandler();

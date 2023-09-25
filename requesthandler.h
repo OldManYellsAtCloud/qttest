@@ -8,6 +8,12 @@
 #include <QSslError>
 #include <QList>
 
+#define TRAM_ICON "sl-icon-type-bus"
+#define BUS_ICON "sl-icon-type-tram"
+#define TRAIN_ICON "sl-icon-type-train"
+#define SHIP_ICON "sl-icon-type-ship"
+#define CABLECAR_ICON "sl-icon-type-cablecar"
+
 class RequestHandler: public QObject
 {
     Q_OBJECT
