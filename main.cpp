@@ -1,9 +1,18 @@
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
+#include <QDir>
+
+#include "settings.h"
+#include "requesthandler.h"
+
 
 
 int main(int argc, char *argv[])
 {
+
+
+
+
     QGuiApplication app(argc, argv);
 
     QQmlApplicationEngine engine;
@@ -14,6 +23,13 @@ int main(int argc, char *argv[])
                 QCoreApplication::exit(-1);
         }, Qt::QueuedConnection);
     engine.load(url);
+
+
+    QString cfgPath = QDir::homePath() + QDir::separator() + "pine_bus.cfg";
+    Settings::getSettings().init(cfgPath);
+
+    RequestHandler *rh = new RequestHandler();
+    rh->getCompletion("neuaff");
 
     return app.exec();
 }

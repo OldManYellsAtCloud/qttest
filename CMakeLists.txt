@@ -9,6 +9,8 @@ find_package(Qt6 6.2 COMPONENTS Quick REQUIRED)
 
 qt_add_executable(appBusTimetable
     main.cpp
+    settings.h settings.cpp
+    requesthandler.h requesthandler.cpp
 )
 
 qt_add_qml_module(appBusTimetable
