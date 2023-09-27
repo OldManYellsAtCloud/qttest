@@ -4,6 +4,7 @@
 
 #include "settings.h"
 #include "autocompletionhandler.h"
+#include "timetablehandler.h"
 
 #define CONFIG_FILE  "pine_bus.cfg"
 
@@ -15,6 +16,7 @@ int main(int argc, char *argv[])
 
     QQmlApplicationEngine engine;
     qmlRegisterType<AutoCompletionHandler>("sgy.pine.bus", 1, 0, "AutoCompletionHandler");
+    qmlRegisterType<TimetableHandler>("sgy.pine.bus", 1, 0, "TimtableHandler");
 
     const QUrl url(u"qrc:/BusTimetable/main.qml"_qs);
     QObject::connect(&engine, &QQmlApplicationEngine::objectCreated,
@@ -26,5 +28,9 @@ int main(int argc, char *argv[])
 
     QString cfgPath = QDir::homePath() + QDir::separator() + CONFIG_FILE;
     Settings::getSettings().init(cfgPath);
+
+    TimetableHandler *th = new TimetableHandler();
+    th->fetchData("Zürich, Neuaffoltern");
+
     return app.exec();
 }

@@ -12,6 +12,7 @@ qt_add_executable(appBusTimetable
     settings.h settings.cpp
     requesthandler.h requesthandler.cpp
     autocompletionhandler.h autocompletionhandler.cpp
+    timetablehandler.h timetablehandler.cpp
 )
 
 qt_add_qml_module(appBusTimetable
