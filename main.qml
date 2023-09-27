@@ -12,7 +12,7 @@ Window {
         id: label
         anchors.top: parent.top
         anchors.horizontalCenter: parent.horizontalCenter
-        text: "Enter the destination"
+        text: qsTr("Enter the destination")
         font.pixelSize: 20
         font.bold: true
     }
@@ -37,7 +37,7 @@ Window {
             Text {
                 color: "gray"
                 font.pixelSize: 20
-                text: "Enter a location..."
+                text: qsTr("Enter a location...")
                 visible: !input.text && !input.activeFocus
             }
             onTextChanged: {
@@ -51,7 +51,8 @@ Window {
         anchors.top: inputroot.bottom
         anchors.left: parent.left
         anchors.right: parent.right
-        anchors.bottom: parent.bottom
+        //anchors.bottom: parent.bottom
+        height: 300
         id: autocomplete
         model: autocompletion
 
