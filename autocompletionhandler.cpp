@@ -25,24 +25,24 @@ AutoCompletionHandler::~AutoCompletionHandler()
     delete(locations);
 }
 
-void AutoCompletionHandler::fetchData(QString term)
+void AutoCompletionHandler::fetchData(QVariant term)
 {
+    QString sTerm = term.toString();
     QString surl = Settings::getSettings().getValue("endpoints/base").toString();
     surl += Settings::getSettings().getValue("endpoints/completion").toString();
 
     QUrl *url = new QUrl(surl);
     QUrlQuery *qQuery = new QUrlQuery{};
-    qQuery->addQueryItem("term", term);
+    qQuery->addQueryItem("term", sTerm);
 
     url->setQuery(qQuery->query());
 
     getRequest()->setUrl(*url);
-    qDebug() << "about to send a request: " << getRequest()->url();
+    qDebug() << "sending html request to: " << getRequest()->url();
     getManager()->get(*getRequest());
 
-    //delete(url);
-    //delete(qQuery);
-    qDebug() << "still not dead";
+    delete(url);
+    delete(qQuery);
 }
 
 int AutoCompletionHandler::rowCount(const QModelIndex &parent) const
@@ -58,6 +58,7 @@ QVariant AutoCompletionHandler::data(const QModelIndex &index, int role) const
 
     switch(role){
         case Qt::DisplayRole:
+            qDebug() << "Returning text: " << locations->at(index.row());
             return locations->at(index.row());
     }
 
@@ -67,12 +68,15 @@ QVariant AutoCompletionHandler::data(const QModelIndex &index, int role) const
 void AutoCompletionHandler::requestFinished(QNetworkReply *reply)
 {
     QString replyString = reply->readAll();
-    qDebug() << "vau vau: " << replyString;
+    qDebug() << "response: " << replyString;
     parseAutoCompletion(replyString);
 }
 
 void AutoCompletionHandler::parseAutoCompletion(QString jsonString){
+    QList<QString> *tmp = new QList<QString>();
+    emit beginRemoveRows(QModelIndex(), 0, locations->count() - 1);
     locations->clear();
+    emit endRemoveRows();
     QJsonDocument jsonDocument = QJsonDocument::fromJson(jsonString.toUtf8());
     QJsonArray jsonArray = jsonDocument.array();
     if (jsonArray.size() == 0) {
@@ -85,10 +89,14 @@ void AutoCompletionHandler::parseAutoCompletion(QString jsonString){
     for (auto jsonValue: jsonArray){
         iconclass = jsonValue.toObject()["iconclass"].toString();
         if (isDataRelevant(iconclass)) {
-            locations->append(jsonValue.toObject()["label"].toString());
+            tmp->append(jsonValue.toObject()["label"].toString());
         }
     }
+    emit beginInsertRows(QModelIndex(), 0, tmp->count() - 1);
+    for (int i = 0; i < tmp->count(); ++i)
+        locations->append(tmp->at(i));
 
+    emit endInsertRows();
     qDebug() << "brah: " << *locations;
-
+    delete(tmp);
 }

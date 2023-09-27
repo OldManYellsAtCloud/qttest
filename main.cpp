@@ -26,12 +26,5 @@ int main(int argc, char *argv[])
 
     QString cfgPath = QDir::homePath() + QDir::separator() + CONFIG_FILE;
     Settings::getSettings().init(cfgPath);
-
-    AutoCompletionHandler *ah = new AutoCompletionHandler();
-
-    //RequestHandler *rh = new RequestHandler();
-    //rh->getCompletion("neuaff");
-    ah->fetchData("aff");
-
     return app.exec();
 }

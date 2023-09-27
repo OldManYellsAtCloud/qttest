@@ -18,6 +18,7 @@ Window {
     }
 
     Rectangle {
+        id: inputroot
         anchors.top: label.bottom
         anchors.left: parent.left
         anchors.right: parent.right
@@ -45,6 +46,20 @@ Window {
         }
     }
 
+    ListView {
+        visible: true
+        anchors.top: inputroot.bottom
+        anchors.left: parent.left
+        anchors.right: parent.right
+        anchors.bottom: parent.bottom
+        id: autocomplete
+        model: autocompletion
+
+        delegate: AutoCompleteDelegate {
+            text: model.display
+        }
+    }
+
     Timer {
         id: timer
         interval: 800
@@ -52,16 +67,12 @@ Window {
         repeat: false
         onTriggered: {
             if (input.text) {
-                console.log("That's when I should ask the internet for ..." + input.text + "...")
+                autocompletion.fetchData(input.text)
             }
         }
     }
 
-    ListView {
-        id: autocomplete
-        model: AutoCompletionHandler {}
-        delegate: AutoCompleteDelegate {
-            text: model.display
-        }
+    AutoCompletionHandler {
+        id: autocompletion
     }
 }

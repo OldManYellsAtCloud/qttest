@@ -17,7 +17,7 @@ private:
 public:
     explicit AutoCompletionHandler(QObject *parent = nullptr);
     ~AutoCompletionHandler();
-    void fetchData(QString term);
+    void fetchData(QVariant term) override;
 //    void parseResponse() override;
 
     // QAbstractItemModel interface
