@@ -1,9 +1,12 @@
 import QtQuick
+import sgy.pine.bus
 
 Window {
     id: root
     visible: true
     title: qsTr("Hello World")
+    width: 300
+    height: 600
 
     Text {
         id: label
@@ -56,5 +59,9 @@ Window {
 
     ListView {
         id: autocomplete
+        model: AutoCompletionHandler {}
+        delegate: AutoCompleteDelegate {
+            text: model.display
+        }
     }
 }

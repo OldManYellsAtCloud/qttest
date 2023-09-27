@@ -11,20 +11,14 @@ qt_add_executable(appBusTimetable
     main.cpp
     settings.h settings.cpp
     requesthandler.h requesthandler.cpp
+    autocompletionhandler.h autocompletionhandler.cpp
 )
 
 qt_add_qml_module(appBusTimetable
     URI BusTimetable
     VERSION 1.0
-    QML_FILES main.qml 
-)
-
-set_target_properties(appBusTimetable PROPERTIES
-    MACOSX_BUNDLE_GUI_IDENTIFIER my.example.com
-    MACOSX_BUNDLE_BUNDLE_VERSION ${PROJECT_VERSION}
-    MACOSX_BUNDLE_SHORT_VERSION_STRING ${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR}
-    MACOSX_BUNDLE TRUE
-    WIN32_EXECUTABLE TRUE
+    QML_FILES main.qml
+    QML_FILES AutoCompleteDelegate.qml
 )
 
 target_link_libraries(appBusTimetable

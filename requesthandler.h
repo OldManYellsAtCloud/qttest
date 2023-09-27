@@ -2,30 +2,31 @@
 #define REQUESTHANDLER_H
 
 #include <QString>
+#include <QAbstractListModel>
 #include <QNetworkAccessManager>
 #include <QNetworkRequest>
 #include <QNetworkReply>
-#include <QSslError>
 #include <QList>
 
-#define TRAM_ICON "sl-icon-type-bus"
-#define BUS_ICON "sl-icon-type-tram"
-#define TRAIN_ICON "sl-icon-type-train"
-#define SHIP_ICON "sl-icon-type-ship"
-#define CABLECAR_ICON "sl-icon-type-cablecar"
-
-class RequestHandler: public QObject
+class RequestHandler: public QAbstractListModel
 {
     Q_OBJECT
 private:
     QNetworkAccessManager *manager;
     QNetworkRequest *request;
 public slots:
-    void requestFinished(QNetworkReply *reply);
-    void requestError(QNetworkReply *reply, QList<QSslError> const &errors);
+    virtual void requestFinished(QNetworkReply *reply) = 0;
 public:
-    RequestHandler();
-    void getCompletion(QString s);
+    explicit RequestHandler(QObject *parent = nullptr);
+//    virtual void parseResponse() = 0;
+    QNetworkAccessManager* getManager();
+    QNetworkRequest* getRequest();
+
+    // QAbstractItemModel interface
+public:
+    virtual int rowCount(const QModelIndex &parent) const override = 0;
+    virtual QVariant data(const QModelIndex &index, int role) const override = 0;
+
 };
 
 #endif // REQUESTHANDLER_H
