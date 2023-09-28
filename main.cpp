@@ -32,8 +32,8 @@ int main(int argc, char *argv[])
     QString cfgPath = QDir::homePath() + QDir::separator() + CONFIG_FILE;
     Settings::getSettings().init(cfgPath);
 
-    TimetableHandler *th = new TimetableHandler();
-    th->fetchData("Zürich, Neuaffoltern");
+    /*TimetableHandler *th = new TimetableHandler();
+    th->fetchData("Zürich, Neuaffoltern");*/
 
     return app.exec();
 }

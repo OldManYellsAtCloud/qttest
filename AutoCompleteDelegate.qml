@@ -18,10 +18,11 @@ Rectangle {
     MouseArea {
         anchors.fill: parent
         onClicked: {
-            input.text = textLabel.text
+            // input.text = textLabel.text
             // autocomplete.visible = false
-            autocomplete.clearModel()
+            autocompletion.clearModel()
             stackView.push("DepartureScreen.qml")
+            timetable.fetchData(textLabel.text)
         }
     }
 }

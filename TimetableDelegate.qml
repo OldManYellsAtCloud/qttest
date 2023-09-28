@@ -10,11 +10,12 @@ Rectangle {
     property alias directionLabel: directionLabel.text
     property alias arrivalLabel: arrivalLabel.text
     property alias delayLabel: delayLabel.text
+    property alias color: lineNumber.color
     Text {
         id: lineNumber
         font.pixelSize: 26
         anchors.verticalCenter: root.verticalCenter
-        color: "blue"
+        //color: "blue"
         padding: 10
     }
 

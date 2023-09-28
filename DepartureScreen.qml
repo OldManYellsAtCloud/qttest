@@ -23,13 +23,20 @@ Item {
     }
 
     ListView {
-        anchors.top: button.bottom
-        anchors.left: root.left
-        anchors.right: root.right
-        anchors.bottom: root.bottom
+        id: departureList
+        //anchors.top: button.bottom
+        //anchors.left: root.left
+        //anchors.right: root.right
+        //anchors.bottom: root.bottom
+        height: 500
+        width: 100
         model: timetable
         delegate: TimetableDelegate {
-
+            lineNumber: model.linenumber
+            directionLabel: model.terminal
+            arrivalLabel: model.arrivaltime
+            delayLabel: model.delay
+            color: "black"
         }
     }
 }

@@ -81,9 +81,7 @@ void AutoCompletionHandler::requestFinished(QNetworkReply *reply)
 
 void AutoCompletionHandler::parseAutoCompletion(QString jsonString){
     QList<QString> *tmp = new QList<QString>();
-    emit beginRemoveRows(QModelIndex(), 0, locations->count() - 1);
-    locations->clear();
-    emit endRemoveRows();
+    clearModel();
     QJsonDocument jsonDocument = QJsonDocument::fromJson(jsonString.toUtf8());
     QJsonArray jsonArray = jsonDocument.array();
     if (jsonArray.size() == 0) {

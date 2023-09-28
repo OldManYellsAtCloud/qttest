@@ -22,7 +22,7 @@ public:
     QNetworkAccessManager* getManager();
     QNetworkRequest* getRequest();
     Q_INVOKABLE virtual void fetchData(QVariant arg) = 0;
-    Q_INVOKABLE virtual void clearModel();
+    Q_INVOKABLE virtual void clearModel() = 0;
 
     // QAbstractItemModel interface
 public:
