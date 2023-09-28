@@ -3,10 +3,22 @@
 
 #include "requesthandler.h"
 
+struct timetableEntry {
+    QString *lineNumber;
+    QString *terminal;
+    QTime *arrivalTime;
+    QTime *delay;
+};
+
 class TimetableHandler : public RequestHandler
 {
+private:
+    std::vector<timetableEntry> timeTableList;
+    void parseTimetable(QString jsonString);
+
 public:
     explicit TimetableHandler(QObject *parent = nullptr);
+    ~TimetableHandler();
 
     // QAbstractItemModel interface
 public:

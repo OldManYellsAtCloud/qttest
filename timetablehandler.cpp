@@ -2,11 +2,46 @@
 #include "settings.h"
 #include <QUrl>
 #include <QUrlQuery>
+#include <QJsonDocument>
+#include <QJsonArray>
+#include <QJsonObject>
 
 TimetableHandler::TimetableHandler(QObject *parent)
     : RequestHandler{parent}
 {
+}
 
+TimetableHandler::~TimetableHandler()
+{
+}
+
+void TimetableHandler::parseTimetable(QString jsonString)
+{
+    emit beginRemoveRows(QModelIndex(), 0, timeTableList.size() - 1);
+    timeTableList.clear();
+    emit endRemoveRows();
+    QJsonDocument jsonDocument = QJsonDocument::fromJson(jsonString.toUtf8());
+    QJsonObject connectionsObject = jsonDocument.object()["connections"];
+    if (jsonArray.size() == 0) {
+        qDebug() << "Reponse is an empty array";
+        return;
+    }
+
+    QString iconclass;
+
+    for (auto jsonValue: jsonArray){
+        iconclass = jsonValue.toObject()["iconclass"].toString();
+        if (isDataRelevant(iconclass)) {
+            tmp->append(jsonValue.toObject()["label"].toString());
+        }
+    }
+    emit beginInsertRows(QModelIndex(), 0, tmp->count() - 1);
+    for (int i = 0; i < tmp->count(); ++i)
+        locations->append(tmp->at(i));
+
+    emit endInsertRows();
+    qDebug() << "brah: " << *locations;
+    delete(tmp);
 }
 
 int TimetableHandler::rowCount(const QModelIndex &parent) const
@@ -23,6 +58,7 @@ void TimetableHandler::requestFinished(QNetworkReply *reply)
 {
     QString replyString = reply->readAll();
     qDebug() << "response: " << replyString;
+    parseTimetable(replyString);
 }
 
 void TimetableHandler::fetchData(QVariant term)

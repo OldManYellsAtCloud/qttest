@@ -1,5 +1,6 @@
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
+#include <QQuickStyle>
 #include <QDir>
 
 #include "settings.h"
@@ -11,13 +12,15 @@
 
 int main(int argc, char *argv[])
 {
+
+    QQuickStyle::setStyle("Material");
+
     QGuiApplication app(argc, argv);
 
+    qmlRegisterType<AutoCompletionHandler>("sgy.pine.bus", 1, 0, "AutoCompletionHandler");
+    qmlRegisterType<TimetableHandler>("sgy.pine.bus", 1, 0, "TimetableHandler");
 
     QQmlApplicationEngine engine;
-    qmlRegisterType<AutoCompletionHandler>("sgy.pine.bus", 1, 0, "AutoCompletionHandler");
-    qmlRegisterType<TimetableHandler>("sgy.pine.bus", 1, 0, "TimtableHandler");
-
     const QUrl url(u"qrc:/BusTimetable/main.qml"_qs);
     QObject::connect(&engine, &QQmlApplicationEngine::objectCreated,
         &app, [url](QObject *obj, const QUrl &objUrl) {

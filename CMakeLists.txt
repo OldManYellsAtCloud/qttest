@@ -5,7 +5,7 @@ project(BusTimetable VERSION 0.1 LANGUAGES CXX)
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-find_package(Qt6 6.2 COMPONENTS Quick REQUIRED)
+find_package(Qt6 6.2 COMPONENTS Quick QuickControls2 REQUIRED)
 
 qt_add_executable(appBusTimetable
     main.cpp
@@ -20,10 +20,13 @@ qt_add_qml_module(appBusTimetable
     VERSION 1.0
     QML_FILES main.qml
     QML_FILES AutoCompleteDelegate.qml
+    QML_FILES Home.qml
+    QML_FILES DepartureScreen.qml
+    QML_FILES TimetableDelegate.qml
 )
 
 target_link_libraries(appBusTimetable
-    PRIVATE Qt6::Quick)
+    PRIVATE Qt6::Quick Qt6::QuickControls2)
 
 install(TARGETS appBusTimetable
     BUNDLE DESTINATION .

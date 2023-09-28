@@ -45,6 +45,13 @@ void AutoCompletionHandler::fetchData(QVariant term)
     delete(qQuery);
 }
 
+void AutoCompletionHandler::clearModel()
+{
+    emit beginRemoveRows(QModelIndex(), 0, locations->count() - 1);
+    locations->clear();
+    emit endRemoveRows();
+}
+
 int AutoCompletionHandler::rowCount(const QModelIndex &parent) const
 {
     return locations->size();

@@ -1,9 +1,10 @@
 import QtQuick
 
 Rectangle {
+    id: root
     property alias text: textLabel.text
     height: 30
-    width: 100
+    //width: 100
     anchors.left: parent.left
     anchors.right: parent.right
     color: "red"
@@ -14,5 +15,13 @@ Rectangle {
         font.pixelSize: 15
         color: "green"
     }
-
+    MouseArea {
+        anchors.fill: parent
+        onClicked: {
+            input.text = textLabel.text
+            // autocomplete.visible = false
+            autocomplete.clearModel()
+            stackView.push("DepartureScreen.qml")
+        }
+    }
 }

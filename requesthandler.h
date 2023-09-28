@@ -18,10 +18,11 @@ public slots:
     virtual void requestFinished(QNetworkReply *reply) = 0;
 public:
     explicit RequestHandler(QObject *parent = nullptr);
-//    virtual void parseResponse() = 0;
+
     QNetworkAccessManager* getManager();
     QNetworkRequest* getRequest();
     Q_INVOKABLE virtual void fetchData(QVariant arg) = 0;
+    Q_INVOKABLE virtual void clearModel();
 
     // QAbstractItemModel interface
 public:
