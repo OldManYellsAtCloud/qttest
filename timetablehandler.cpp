@@ -36,17 +36,20 @@ void TimetableHandler::parseTimetable(QString jsonString)
 
     for (auto jsonValue: connectionsArray){
         struct timetableEntry t;
-        t.arrivalTime = jsonValue.toObject()["time"].toString();
+        // get only the hh:mm part, no need for the date
+        t.arrivalTime = jsonValue.toObject()["time"].toString().mid(11, 5);
         t.terminal = jsonValue.toObject()["terminal"].toObject()["name"].toString();
         t.lineNumber = jsonValue.toObject()["line"].toString();
 
         if (jsonValue.toObject().contains("arr_delay")){
-            t.delay = jsonValue.toObject()["arr_delay"].toInt();
+            t.delay = jsonValue.toObject()["arr_delay"].toString().toInt();
         } else {
             t.delay = 0;
         }
-
-        t.color = QColor(jsonValue.toObject()["color"].toString().split("~")[0]);
+        QString colorString = jsonValue.toObject()["color"].toString().split("~")[0];
+        if (colorString == "ffffff")
+            colorString = "000000";
+        t.color = QColor("#" + colorString);
         timeTableList.push_back(t);
     }
 

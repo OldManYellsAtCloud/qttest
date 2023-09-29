@@ -6,8 +6,8 @@ Window {
     id: root
     visible: true
     title: qsTr("Hello World")
-    width: 300
-    height: 600
+    //width: 300
+    //height: 600
 
     StackView {
         id: stackView

@@ -3,9 +3,7 @@ import sgy.pine.bus
 
 Item {
     id: root
-    visible: true
-    width: 300
-    height: 600
+    anchors.fill: parent
 
     Text {
         id: label
@@ -33,6 +31,7 @@ Item {
             anchors.rightMargin: 10
             color: "green"
             font.pixelSize: 20
+            focus: true
             Text {
                 color: "gray"
                 font.pixelSize: 20

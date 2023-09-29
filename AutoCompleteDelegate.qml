@@ -4,22 +4,19 @@ Rectangle {
     id: root
     property alias text: textLabel.text
     height: 30
-    //width: 100
     anchors.left: parent.left
     anchors.right: parent.right
-    color: "red"
+    color: "lightsteelblue"
     border.color: "blue"
     Text {
         id: textLabel
         anchors.centerIn: parent
         font.pixelSize: 15
-        color: "green"
+        color: "black"
     }
     MouseArea {
         anchors.fill: parent
         onClicked: {
-            // input.text = textLabel.text
-            // autocomplete.visible = false
             autocompletion.clearModel()
             stackView.push("DepartureScreen.qml")
             timetable.fetchData(textLabel.text)
