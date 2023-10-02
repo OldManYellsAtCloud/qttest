@@ -102,6 +102,6 @@ void AutoCompletionHandler::parseAutoCompletion(QString jsonString){
         locations->append(tmp->at(i));
 
     emit endInsertRows();
-    qDebug() << "brah: " << *locations;
+
     delete(tmp);
 }

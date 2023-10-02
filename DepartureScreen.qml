@@ -3,8 +3,6 @@ import QtQuick.Controls
 
 Item {
     visible: true
-    //width: 800
-    //height: 600
     anchors.fill: parent
     Button {
         id: button
@@ -38,7 +36,6 @@ Item {
             directionLabel: model.terminal
             arrivalLabel: model.arrivaltime
             delayLabel: model.delay
-            //color: "black"
             color: model.color
         }
     }

@@ -1,4 +1,5 @@
 import QtQuick
+import QtQuick.Controls
 import sgy.pine.bus
 
 Item {
@@ -39,7 +40,6 @@ Item {
                 visible: !input.text && !input.activeFocus
             }
             onTextChanged: {
-                // autocomplete.visible = true
                 timer.restart()
             }
         }
@@ -68,6 +68,16 @@ Item {
             if (input.text) {
                 autocompletion.fetchData(input.text)
             }
+        }
+    }
+
+    Button {
+        text: qsTr("Quit")
+        anchors.bottom: parent.bottom
+        anchors.right: parent.right
+        anchors.left: parent.left
+        onClicked: {
+            Qt.quit()
         }
     }
 }
