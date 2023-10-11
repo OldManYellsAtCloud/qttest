@@ -3,7 +3,6 @@ import QtQuick.Controls
 
 Item {
     visible: true
-    anchors.fill: parent
     Button {
         id: button
         anchors.top: parent.top
@@ -15,11 +14,11 @@ Item {
             font.pixelSize: 30
             text: qsTr("Back")
             color: "black"
-            MouseArea {
-                anchors.fill: parent
-                onClicked: {
-                    stackView.pop()
-                }
+        }
+        MouseArea {
+            anchors.fill: parent
+            onClicked: {
+                stackView.pop()
             }
         }
     }

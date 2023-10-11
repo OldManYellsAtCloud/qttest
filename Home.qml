@@ -4,7 +4,6 @@ import sgy.pine.bus
 
 Item {
     id: root
-    anchors.fill: parent
 
     Text {
         id: label
