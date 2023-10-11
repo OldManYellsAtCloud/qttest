@@ -104,7 +104,6 @@ void TimetableHandler::fetchData(QVariant term)
     QUrl *url = new QUrl(surl);
     QUrlQuery *qQuery = new QUrlQuery{};
     qQuery->addQueryItem("stop", sTerm);
-    qQuery->addQueryItem("mode", "arrival");
     qQuery->addQueryItem("limit", "15");
     qQuery->addQueryItem("show_delays", "1");
 
