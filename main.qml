@@ -2,21 +2,36 @@ import QtQuick
 import QtQuick.Controls
 import sgy.pine.bus
 
-Window {
-    id: root
-    visible: true
+import QtWayland.Compositor
 
-    StackView {
-        id: stackView
-        anchors.fill: parent
-        initialItem: Home {}
+WaylandCompositor {
+    id: waylandCompositor
+    useHardwareIntegrationExtension: true
+
+    QtTextInputMethodManager{}
+
+    TextInputManager{}
+    Window {
+        id: root
+        visible: true
+
+        StackView {
+            id: stackView
+            anchors.fill: parent
+            initialItem: Home {}
+        }
+
+        AutoCompletionHandler {
+            id: autocompletion
+        }
+
+        TimetableHandler {
+            id: timetable
+        }
     }
 
-    AutoCompletionHandler {
-        id: autocompletion
-    }
-
-    TimetableHandler {
-        id: timetable
+    onSurfaceRequested: {
+        var surface = surfaceComponent.createObject(comp, { } );
+        surface.initialize(comp, client, id, version);
     }
 }
