@@ -8,11 +8,11 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 find_package(Qt6 6.2 COMPONENTS Quick QuickControls2 REQUIRED)
 
 qt_add_executable(appBusTimetable
-    main.cpp
-    settings.h settings.cpp
-    requesthandler.h requesthandler.cpp
-    autocompletionhandler.h autocompletionhandler.cpp
-    timetablehandler.h timetablehandler.cpp
+    src/main.cpp
+    include/settings.h src/settings.cpp
+    include/requesthandler.h src/requesthandler.cpp
+    include/autocompletionhandler.h src/autocompletionhandler.cpp
+    include/timetablehandler.h src/timetablehandler.cpp
 )
 
 qt_add_qml_module(appBusTimetable
@@ -24,6 +24,8 @@ qt_add_qml_module(appBusTimetable
     QML_FILES DepartureScreen.qml
     QML_FILES TimetableDelegate.qml
 )
+
+target_include_directories(appBusTimetable PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/include)
 
 target_link_libraries(appBusTimetable
     PRIVATE Qt6::Quick Qt6::QuickControls2)
