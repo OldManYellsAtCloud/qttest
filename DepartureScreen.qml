@@ -3,6 +3,23 @@ import QtQuick.Controls
 
 Item {
     visible: true
+
+    ListView {
+        id: departureList
+        anchors.top: button.bottom
+        anchors.left: parent.left
+        anchors.right: parent.right
+        anchors.bottom: parent.bottom
+        model: timetable
+        delegate: TimetableDelegate {
+            lineNumber: model.linenumber
+            directionLabel: model.terminal
+            arrivalLabel: model.arrivaltime
+            delayLabel: model.delay
+            color: model.color
+        }
+    }
+
     Button {
         id: button
         anchors.top: parent.top
@@ -20,22 +37,6 @@ Item {
             onClicked: {
                 stackView.pop()
             }
-        }
-    }
-
-    ListView {
-        id: departureList
-        anchors.top: button.bottom
-        anchors.left: parent.left
-        anchors.right: parent.right
-        anchors.bottom: parent.bottom
-        model: timetable
-        delegate: TimetableDelegate {
-            lineNumber: model.linenumber
-            directionLabel: model.terminal
-            arrivalLabel: model.arrivaltime
-            delayLabel: model.delay
-            color: model.color
         }
     }
 }
